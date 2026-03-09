@@ -1,12 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-package com.techShop.tienda.service;
+package com.tiendaTech.tienda.service;
 
 
-import com.techShop.tienda.domain.Producto;
-import com.techShop.tienda.repository.ProductoRepository;
+import com.tiendaTech.tienda.domain.Producto;
+import com.tiendaTech.tienda.repository.ProductoRepository;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
@@ -70,4 +66,20 @@ public class ProductoService {
             throw new IllegalStateException("No se puede eliminar la producto. Tiene datos asociados.", e);
         }
     }
+
+    @Transactional(readOnly = true)
+    public List<Producto> consultaDerivada(double precioInf, double precioSup) {
+        return productoRepository.findByPrecioBetweenOrderByPrecioAsc(precioInf, precioSup);
+    }
+
+    @Transactional(readOnly = true)
+    public List<Producto> consultaJPQL(double precioInf, double precioSup) {
+        return productoRepository.consultaJPQL(precioInf, precioSup);
+    }
+
+    @Transactional(readOnly = true)
+    public List<Producto> consultaSQL(double precioInf, double precioSup) {
+        return productoRepository.consultaJPQL(precioInf, precioSup);
+    }
+
 }
