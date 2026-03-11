@@ -1,3 +1,9 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<body>
+
 <!-- Fragmento #1 que irá en el head de todas las páginas, así se incluye todo lo necesario de configuración-->
 <head th:fragment="head">
     <title>TechShop</title>
@@ -14,8 +20,7 @@
     <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
 </head>
 
-
-<!-- Fragmento #2  define el encabezado de las páginas, en concreto el menú y enlaces rápidos -->
+<!-- Fragmento #2 define el encabezado de las páginas, en concreto el menú y enlaces rápidos -->
 <header th:fragment="header" class="header">
     <nav class="navbar navbar-expand-sm p-0">
         <div class="container">                    
@@ -62,7 +67,6 @@
                 </ul>
                 <div id="resultBlock">
                 </div>         
-
             </div>
         </div>
     </nav>
@@ -77,12 +81,12 @@
     </section>
 </header>
 
-<!-- Fragmento #3  define el footer de las páginas, aparte de esto se podria incluir enlaces a redes socilaes y demás -->
+<!-- Fragmento #3 define el footer de las páginas -->
 <footer th:fragment="footer" class="p-2 mt-5 bg-info text-white">
     <p class="lead text-center">[[#{plantilla.derechos}]] &COPY;</p>
 </footer>
 
-<!-- Fragmentos #4 define una ventana tipo Toast para mostrar mensajes al usuario -->
+<!-- Fragmento #4 define una ventana tipo Toast para mostrar mensajes al usuario -->
 <section th:fragment="mostrarToast">
     <div aria-live="polite" aria-atomic="true" 
          class="position-fixed top-50 start-50 translate-middle" style="z-index: 1080;">                
@@ -120,3 +124,6 @@
         </div>
     </div>
 </section>
+
+</body>
+</html>

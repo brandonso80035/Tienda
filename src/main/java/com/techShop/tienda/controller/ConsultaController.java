@@ -2,9 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.tiendaTech.tienda.controller;
+package com.techShop.tienda.controller;
 
-import com.tiendaTech.tienda.service.ProductoService;
+import com.techShop.tienda.service.ProductoService;
 import java.math.BigDecimal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -58,6 +58,14 @@ public class ConsultaController {
         model.addAttribute("productos", lista);
         model.addAttribute("precioInf", precioInf);
         model.addAttribute("precioSup", precioSup);
+        return "/consultas/listado";
+    }
+    
+    @PostMapping("/consultaPropia")
+    public String consultaPropia(@RequestParam() Integer idCategoria, Model model) {
+        var lista = productoService.consultaPropia(idCategoria);
+        model.addAttribute("productos", lista);
+        model.addAttribute("idCategoria", idCategoria);
         return "/consultas/listado";
     }
 

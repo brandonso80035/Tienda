@@ -1,8 +1,8 @@
-package com.tiendaTech.tienda.service;
+package com.techShop.tienda.service;
 
-
-import com.tiendaTech.tienda.domain.Producto;
-import com.tiendaTech.tienda.repository.ProductoRepository;
+import com.techShop.tienda.domain.Producto;
+import com.techShop.tienda.repository.ProductoRepository;
+import com.techShop.tienda.service.FirebaseStorageService;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
@@ -14,7 +14,6 @@ import org.springframework.web.multipart.MultipartFile;
 @Service
 public class ProductoService {
 
-    // El repositorio es final para asegurar la inmutabilidad
     private final ProductoRepository productoRepository;
     private final FirebaseStorageService firebaseStorageService;
 
@@ -25,7 +24,7 @@ public class ProductoService {
 
     @Transactional(readOnly = true)
     public List<Producto> getProductos(boolean activo) {
-        if (activo) { //Sólo activos...            
+        if (activo) {
             return productoRepository.findByActivoTrue();
         }
         return productoRepository.findAll();
@@ -39,7 +38,7 @@ public class ProductoService {
     @Transactional
     public void save(Producto producto, MultipartFile imagenFile) {
         producto = productoRepository.save(producto);
-        if (!imagenFile.isEmpty()) { //Si no está vacío... pasaron una imagen...            
+        if (!imagenFile.isEmpty()) {
             try {
                 String rutaImagen = firebaseStorageService.uploadImage(
                         imagenFile, "producto",
@@ -47,22 +46,18 @@ public class ProductoService {
                 producto.setRutaImagen(rutaImagen);
                 productoRepository.save(producto);
             } catch (IOException e) {
-
             }
         }
     }
 
     @Transactional
     public void delete(Integer idProducto) {
-        // Verifica si la categoría existe antes de intentar eliminarlo
         if (!productoRepository.existsById(idProducto)) {
-            // Lanza una excepción para indicar que el usuario no fue encontrado
             throw new IllegalArgumentException("La categoría con ID " + idProducto + " no existe.");
         }
         try {
             productoRepository.deleteById(idProducto);
         } catch (DataIntegrityViolationException e) {
-            // Lanza una nueva excepción para encapsular el problema de integridad de datos
             throw new IllegalStateException("No se puede eliminar la producto. Tiene datos asociados.", e);
         }
     }
@@ -79,7 +74,12 @@ public class ProductoService {
 
     @Transactional(readOnly = true)
     public List<Producto> consultaSQL(double precioInf, double precioSup) {
-        return productoRepository.consultaJPQL(precioInf, precioSup);
+        return productoRepository.consultaSQL(precioInf, precioSup); // ✅ corregido
+    }
+    
+    @Transactional(readOnly = true)
+    public List<Producto> consultaPropia(Integer idCategoria) {
+        return productoRepository.findByCategoria_IdCategoriaOrderByDescripcionAsc(idCategoria);
     }
 
 }

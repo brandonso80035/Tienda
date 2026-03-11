@@ -13,7 +13,6 @@ import org.springframework.web.multipart.MultipartFile;
 @Service
 public class CategoriaService {
 
-    // El repositorio es final para asegurar la inmutabilidad
     private final CategoriaRepository categoriaRepository;
     private final FirebaseStorageService firebaseStorageService;
 

@@ -10,11 +10,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 @Controller
 public class IndexController {
     
-    // Las últimas versiones de Spring, recomiendan utilziar final y contructor en lugar de @autowired
     private final ProductoService productoService;
     private final CategoriaService categoriaService;
     
-    // (Spring inyecta automáticamente)
     public IndexController(ProductoService productoService, CategoriaService categoriaService) {
         this.productoService = productoService;
         this.categoriaService = categoriaService;
