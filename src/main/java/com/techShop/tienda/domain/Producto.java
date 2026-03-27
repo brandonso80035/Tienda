@@ -28,7 +28,7 @@ public class Producto implements Serializable {
     @Size(max = 50, message = "La descripción no puede tener más de 50 caracteres.")
     private String descripcion;
 
-    @Column(columnDefinition = "TEXT")
+    @Column(length = 2000)
     private String detalle;
 
     @Column(precision = 12, scale = 2)

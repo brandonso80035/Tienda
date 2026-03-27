@@ -1,142 +1,127 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
-         http://maven.apache.org/xsd/maven-4.0.0.xsd">
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
-    <modelVersion>4.0.0</modelVersion>
+<modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.techShop</groupId>
-    <artifactId>tienda</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <packaging>jar</packaging>
+<parent>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <version>3.2.5</version>
+</parent>
 
-    <name>tienda</name>
-    <description>Proyecto tienda con Oracle</description>
+<groupId>com.techShop</groupId>
+<artifactId>tienda</artifactId>
+<version>1.0</version>
+<name>TechShop</name>
 
-    <parent>
+<properties>
+    <java.version>17</java.version>
+</properties>
+
+<dependencies>
+
+    <!-- SPRING WEB -->
+    <dependency>
         <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.3.5</version>
-        <relativePath/>
-    </parent>
+        <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
 
-    <properties>
-        <java.version>21</java.version>
-    </properties>
+    <!-- THYMELEAF -->
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-thymeleaf</artifactId>
+    </dependency>
 
-    <dependencies>
+    <!-- SECURITY -->
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-security</artifactId>
+    </dependency>
 
-        <!-- Spring Web -->
-        <dependency>
+    <!-- THYMELEAF SECURITY -->
+    <dependency>
+        <groupId>org.thymeleaf.extras</groupId>
+        <artifactId>thymeleaf-extras-springsecurity6</artifactId>
+    </dependency>
+
+    <!-- JPA -->
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-data-jpa</artifactId>
+    </dependency>
+
+    <!-- ORACLE -->
+    <dependency>
+        <groupId>com.oracle.database.jdbc</groupId>
+        <artifactId>ojdbc11</artifactId>
+        <version>23.2.0.0</version>
+    </dependency>
+
+    <!-- VALIDATION -->
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-validation</artifactId>
+    </dependency>
+
+    <!-- WEBJARS -->
+    <dependency>
+        <groupId>org.webjars</groupId>
+        <artifactId>bootstrap</artifactId>
+        <version>5.3.2</version>
+    </dependency>
+
+    <dependency>
+        <groupId>org.webjars</groupId>
+        <artifactId>jquery</artifactId>
+        <version>3.7.1</version>
+    </dependency>
+
+    <dependency>
+        <groupId>org.webjars</groupId>
+        <artifactId>popper.js</artifactId>
+        <version>2.11.7</version>
+    </dependency>
+
+    <dependency>
+        <groupId>org.webjars</groupId>
+        <artifactId>font-awesome</artifactId>
+        <version>6.5.1</version>
+    </dependency>
+
+    <!-- NECESARIO PARA SPRING BOOT 3 -->
+    <dependency>
+        <groupId>org.webjars</groupId>
+        <artifactId>webjars-locator-core</artifactId>
+    </dependency>
+    
+        <!-- LOMBOK -->
+    <dependency>
+        <groupId>org.projectlombok</groupId>
+        <artifactId>lombok</artifactId>
+        <version>1.18.34</version>
+        <scope>provided</scope>
+    </dependency>
+
+    <!-- FIREBASE -->
+    <dependency>
+        <groupId>com.google.cloud</groupId>
+        <artifactId>google-cloud-storage</artifactId>
+        <version>2.30.1</version>
+    </dependency>
+
+</dependencies>
+
+<build>
+    <plugins>
+
+        <plugin>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
+            <artifactId>spring-boot-maven-plugin</artifactId>
+        </plugin>
 
-        <!-- Thymeleaf -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-thymeleaf</artifactId>
-        </dependency>
-
-        <!-- Spring Data JPA -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-jpa</artifactId>
-        </dependency>
-
-        <!-- Spring Security -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
-        </dependency>
-
-        <!-- Oracle JDBC Driver -->
-        <dependency>
-            <groupId>com.oracle.database.jdbc</groupId>
-            <artifactId>ojdbc11</artifactId>
-            <scope>runtime</scope>
-        </dependency>
-
-        <!-- Validation -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-validation</artifactId>
-        </dependency>
-
-        <!-- Lombok -->
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <optional>true</optional>
-        </dependency>
-
-        <!-- Google Cloud Storage -->
-        <dependency>
-            <groupId>com.google.cloud</groupId>
-            <artifactId>google-cloud-storage</artifactId>
-            <version>2.30.1</version>
-        </dependency>
-
-        <!-- Google Authentication -->
-        <dependency>
-            <groupId>com.google.auth</groupId>
-            <artifactId>google-auth-library-oauth2-http</artifactId>
-            <version>1.23.0</version>
-        </dependency>
-
-        <!-- WebJars Bootstrap -->
-        <dependency>
-            <groupId>org.webjars</groupId>
-            <artifactId>bootstrap</artifactId>
-            <version>5.3.3</version>
-        </dependency>
-
-        <!-- WebJars FontAwesome -->
-        <dependency>
-            <groupId>org.webjars</groupId>
-            <artifactId>font-awesome</artifactId>
-            <version>6.5.2</version>
-        </dependency>
-
-        <!-- WebJars jQuery -->
-        <dependency>
-            <groupId>org.webjars</groupId>
-            <artifactId>jquery</artifactId>
-            <version>3.7.1</version>
-        </dependency>
-
-        <!-- WebJars Popper -->
-        <dependency>
-            <groupId>org.webjars</groupId>
-            <artifactId>popper.js</artifactId>
-            <version>2.11.7</version>
-        </dependency>
-
-        <!-- WebJars locator -->
-        <dependency>
-            <groupId>org.webjars</groupId>
-            <artifactId>webjars-locator-core</artifactId>
-        </dependency>
-
-        <!-- Testing -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-
-    </dependencies>
-
-    <build>
-        <plugins>
-
-            <!-- Spring Boot Plugin -->
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-
-        </plugins>
-    </build>
+    </plugins>
+</build>
 
 </project>

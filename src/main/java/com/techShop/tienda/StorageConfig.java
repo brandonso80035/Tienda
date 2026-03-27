@@ -1,28 +1,26 @@
-package com.techShop.tienda.config;
-
+package com.techShop.tienda;
+        
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.cloud.storage.Storage;
 import com.google.cloud.storage.StorageOptions;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
-import java.io.FileInputStream;
-import java.io.IOException;
+import org.springframework.core.io.ClassPathResource;
 
 @Configuration
 public class StorageConfig {
 
-    @Value("${firebase.json.file}")
-    private String firebaseJsonFile;
-
     @Bean
     public Storage storage() throws IOException {
-        FileInputStream serviceAccount =
-                new FileInputStream(firebaseJsonFile);
+
+        ClassPathResource resource = new ClassPathResource("firebase/serviceAccountKey.json");
 
         GoogleCredentials credentials =
-                GoogleCredentials.fromStream(serviceAccount);
+                GoogleCredentials.fromStream(resource.getInputStream());
 
         return StorageOptions.newBuilder()
                 .setCredentials(credentials)
