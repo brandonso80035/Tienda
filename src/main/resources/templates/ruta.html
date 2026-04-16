@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html xmlns="http://www.thymeleaf.org">
+
+<head th:replace="~{general/fragmentos :: head}"/>
+
+<body>
+
+<header th:replace="~{general/fragmentos :: header}"/>
+
+<section class="container mt-5">
+
+    <!-- Título -->
+    <h2 class="mb-4">
+        <i class="fas fa-route"></i> [[#{plantilla.rutas}]]
+    </h2>
+
+    <!-- Boton de agregar -->
+    <div class="mb-3">
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalRuta">
+            <i class="fa fa-plus"></i> Agregar Ruta
+        </button>
+    </div>
+
+    <!-- lista total de rutas -->
+    <div class="card text-center bg-success text-white mb-4">
+        <div class="card-body">
+            <h4>Total de Rutas</h4>
+            <h2 th:text="${totalRutas}"></h2>
+            <!-- totalRutas por medio del controller y ayuda constante. -->
+        </div>
+    </div>
+
+    <!-- TABLA -->
+    <div class="card shadow-sm">
+        <div class="card-header">
+            <h5 class="mb-0">Listado de Rutas</h5>
+        </div>
+
+        <div class="card-body">
+            
+            <!-- En dado caso de error, un mensaje si no hay rutas -->
+            <div th:if="${#lists.isEmpty(rutas)}" class="alert alert-warning text-center">
+                No hay rutas registradas
+            </div>
+
+            <!-- Tabla ahora si hay datos -->
+            <table th:unless="${#lists.isEmpty(rutas)}"
+                   class="table table-striped table-hover">
+
+                <thead class="table-dark">
+                    <tr>
+                        <th>#</th>
+                        <th>Nombre</th>
+                        <th>URL</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                     <!-- Lista de rutas -->
+                    <tr th:each="r, stat : ${rutas}">
+                        
+                        <!-- Número automático -->
+                        <td th:text="${stat.index + 1}"></td>
+                        
+                        <!-- atributo = nombre de la ruta -->
+                        <td th:text="${r.atributo}"></td>
+                        
+                        <!-- valor = URL -->
+                        <td th:text="${r.valor}"></td>
+                    </tr>
+                </tbody>
+
+            </table>
+
+        </div>
+    </div>
+
+</section>
+
+<!-- Agregar la ruta con el modal -->
+<div class="modal fade" id="modalRuta">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header bg-info text-white">
+                <h5 class="modal-title">
+                    <i class="fas fa-plus"></i> Agregar Ruta
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <!-- Formulario -->
+            <form th:action="@{/constante/guardar}" method="post">
+
+                <div class="modal-body">
+                    
+                    <!-- atributo = nombre -->
+                    <div class="mb-3">
+                        <label>Nombre: </label>
+                        <input type="text" name="atributo"
+                               class="form-control"
+                               placeholder="RUTA_HOME"
+                               required/>
+                    </div>
+                    
+                    <!-- valor = URL -->
+                    <div class="mb-3">
+                        <label>URL: </label>
+                        <input type="text" name="valor"
+                               class="form-control"
+                               placeholder="/home"
+                               required/>
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-success">
+                        <i class="fa fa-save"></i> Guardar
+                    </button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        Cerrar
+                    </button>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+</div>
+
+<footer th:replace="~{general/fragmentos :: footer}"/>
+
+</body>
+</html>
